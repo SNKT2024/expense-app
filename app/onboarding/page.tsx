@@ -1,7 +1,26 @@
-import { auth } from "@clerk/nextjs/server";
+import SyncUserPage from "@/lib/services/user";
+import { SignOutButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default async function OnboardingForm() {
-  const { isAuthenticated, userId } = await auth();
+  const userCreated = await SyncUserPage();
 
-  return <h1>Onboarding</h1>;
+  if (!userCreated) {
+    redirect("/sign-up");
+  }
+
+  return (
+    <div>
+      {userCreated ? (
+        <h1>
+          Onboarding{" "}
+          <div>
+            <SignOutButton />
+          </div>
+        </h1>
+      ) : (
+        <h2>Failed</h2>
+      )}
+    </div>
+  );
 }

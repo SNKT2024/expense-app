@@ -14,7 +14,7 @@ export default async function SyncUserPage() {
     .filter(Boolean)
     .join(" ");
 
-  await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { id: clerkUser.id },
     update: {
       email: primaryEmail,
@@ -27,4 +27,6 @@ export default async function SyncUserPage() {
       currency: "INR",
     },
   });
+
+  return user;
 }

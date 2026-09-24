@@ -82,7 +82,7 @@ model Account {
   openingBalance Decimal     @default(0.0)
   currentBalance Decimal     @default(0.0)
   currencyType   String      @default("INR")
-  isArchived     Boolean     @default(false)
+  isArchived     Boolean?    @default(false)
   color          String?
   icon           String?
 

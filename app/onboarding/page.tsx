@@ -1,6 +1,6 @@
 import SyncUserPage from "@/lib/services/user";
-import { SignOutButton } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import OnboardingAccountForm from "./onboarding-account-form";
 
 export default async function OnboardingForm() {
   const userCreated = await SyncUserPage();
@@ -10,17 +10,8 @@ export default async function OnboardingForm() {
   }
 
   return (
-    <div>
-      {userCreated ? (
-        <h1>
-          Onboarding{" "}
-          <div>
-            <SignOutButton />
-          </div>
-        </h1>
-      ) : (
-        <h2>Failed</h2>
-      )}
+    <div className="min-w-md p-2">
+      {userCreated ? <OnboardingAccountForm /> : <h2>Failed</h2>}
     </div>
   );
 }
